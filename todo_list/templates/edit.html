@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Task</title>
+</head>
+<body>
+
+ <style type="text/css">
+    #centerLayer {
+     position: absolute;
+     width: 40%;
+     height: 30%;
+     left: 50%;
+     top: 50%;
+     margin-left: -20%;
+     margin-top: -15%;
+     background: #ebebeb;
+        outline: 2px solid #000;
+    }
+ </style>
+
+{{ message }}
+<div id="centerLayer">
+
+<form method="post" action="{% url 'edit' %}" style="margin-top:10px; margin-left: 30px">
+    <h3 align="center">Edit Task</h3>
+    <p>Task Name:
+    <input type="text" name="task_name" value ='{{ edit_data.task_name }}' style="width: 400px"></p>
+    <br>
+    {% if edit_data.done == '1' %}
+    <p><input type="checkbox" name="done" value="done" checked><b>Done?</b></p>
+    {% else %}
+    <p><input type="checkbox" name="done" value="done"><b>Done?</b></p>
+    {% endif %}
+    <input type="hidden" name="id" value="{{ edit_data.id }}">
+    <p style="text-align: right; margin-right: 35px"><input type="submit" value="Save"></p>
+
+</form>
+
+    </div>
+
+</body>
+</html>
