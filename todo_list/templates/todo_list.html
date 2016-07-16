@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My TODO List</title>
+
+    <style type="text/css">
+
+
+   th {
+
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    font-family: Comic Sans, Comic Sans MS, cursive;
+    font-size: 16px;
+    font-weight: bold;
+    height: 45px;
+    text-align: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+
+   }
+   td {
+
+       border-bottom: 1px solid #ebebeb;
+       font-family: Comic Sans, Comic Sans MS, cursive;
+       font-size: 16px;
+
+       height: 15px;
+       text-align: left;
+
+   }
+
+        A {
+    text-decoration: none;
+    font-weight: bold;
+        }
+   A:hover {
+    text-decoration: none;
+
+   }
+
+  </style>
+
+
+
+</head>
+<body>
+
+<div style="margin: 15px" >
+<p><a href="{% url 'index' %}"><h1 style="text-align: center">My TODO List</h1></a></p>
+<br>
+
+<table align="center" width="60%">
+    <tr>
+
+        <th style = "width: 20%">STATUS</th>
+        <th>TASKS</th>
+        <th style = "width: 40%">ACTIONS</th>
+
+    </tr>
+    {% for i in tasks_data.values %}
+    <tr>
+            <td style = "text-align: center">
+                {% if i.done == '1' %}
+                <p style="color:green"><b>[+]</b></p>
+                {% else %}
+                <p style="color: red"><b>[-]</b></p>
+                {% endif %}
+            </td>
+            <td>{{ i.task_name }}</td>
+            <td style="text-align: center">
+                <table align="center" style="border-spacing: 20px;"><tr>
+                    <td><a href="{% url 'up_down' %}?position={{ i.position }}&action=up">Up</a></td>
+                    <td><a href="{% url 'up_down' %}?position={{ i.position }}&action=down">Down</a></td>
+                    <td><a href="{% url 'edit' %}?id={{ i.id }}">Edit</a></td>
+                    <td><a href="{% url 'del' %}?id={{ i.id }}">Delete</a></td>
+                </tr></table>
+            </td>
+
+    </tr>
+
+    {% endfor %}
+    <tr>
+
+        <td></td>
+        <td></td>
+        <td><p align="right"><a href="{% url 'add_task' %}" style="text-align: right">+ ADD TASK</a></p></td>
+
+    </tr>
+</table>
+
+
+
+
+{% csrf_token %}
+</div>
+
+
+</body>
+</html>
