@@ -15,9 +15,9 @@ class MyTest(TestCase):
     def test_ok_delete_my_task(self):
         data = {'task_name': 'my_test_task', 'done': '1'}
         response = self.client.post('/add_task/', data)
-        q_my_task = Tasks.objects.filter()
+        q_my_task = Tasks.objects.all()
         self.assertEquals(q_my_task.count(), 1)
-        Tasks.objects.filter(id=1).delete()
+        self.client.get('/del/', {'id':1})
         self.assertEquals(q_my_task.count(), 0)
 
     def test_ok_edit_my_task(self):
@@ -25,6 +25,6 @@ class MyTest(TestCase):
         response = self.client.post('/add_task/', data)
         q_my_task = Tasks.objects.filter()
         self.assertEquals(q_my_task.count(), 1)
-        Tasks.objects.filter(id=1).update(task_name='NEW NAME FOR MY TASK')
+        self.client.post('/edit/', {'id':1,'task_name': 'NEW NAME FOR MY TASK'})
         self.assertEquals(Tasks.objects.filter().get().task_name, 'NEW NAME FOR MY TASK')
 
